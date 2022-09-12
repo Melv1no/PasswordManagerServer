@@ -11,18 +11,20 @@ namespace PasswordManagerServer
         public String Password { get; set; }
         public String Email { get; set; }
         public String NumberPhone { get; set; }
-        public PasswordModel(String serviceName, string username, string email,string password, String numberPhone)
+        public String id;
+        public PasswordModel(String id, String serviceName, string username, string email, string password, String numberPhone)
         {
+            this.id = id;
             ServiceName = serviceName;
-            Username = username;    
+            Username = username;
             Email = email;
             Password = password;
             NumberPhone = numberPhone;
         }
-}
-public class Password
+    }
+    public class Password
     {
-        private PasswordModel passwordModel = new PasswordModel(null,null,null,null,null);
+        private PasswordModel passwordModel = new PasswordModel(null, null, null, null, null, null);
         public Password()
         {
         }
@@ -31,6 +33,11 @@ public class Password
             return new Password();
         }
         public PasswordModel Build() => passwordModel;
+        public Password setID(String id)
+        {
+            passwordModel.ServiceName = id;
+            return this;
+        }
         public Password setServiceName(String serviceName)
         {
             passwordModel.ServiceName = serviceName;
@@ -55,6 +62,10 @@ public class Password
         {
             passwordModel.NumberPhone = numberPhone;
             return this;
+        }
+        public String getID()
+        {
+            return passwordModel.id;
         }
         public String getPassword()
         {

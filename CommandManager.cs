@@ -24,10 +24,13 @@ namespace PasswordManagerServer
                     }
                     return list;
                 case "UPDATE":
+                    return "";
                 case "ADD":
+                    return "";
                 case "REMOVE":
+                    return "";
                 default:
-                    return "ERROR";
+                    return "ERROR default";
                     break;
             }
 

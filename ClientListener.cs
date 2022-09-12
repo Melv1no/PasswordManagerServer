@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Net;
 using System.Net.Sockets;
 using System.Text;
@@ -44,13 +45,12 @@ namespace PasswordManagerServer
 
                     while((i = networkStream.Read(bytes,0,bytes.Length)) != 0)
                     {
-                        data = System.Text.Encoding.UTF8.GetString(bytes,0,bytes.Length);
-                        Console.WriteLine("Command received: {0}", data);
+                        data = System.Text.Encoding.ASCII.GetString(bytes, 0,i);
+                        byte[] toClient = System.Text.Encoding.ASCII.GetBytes(CommandManager.Redirect(data));
 
-                        byte[] toClient = System.Text.Encoding.UTF8.GetBytes("OK");
-                        
-                        networkStream.Write(toClient, 0, toClient.Length);
+                        networkStream.Write(toClient, 0, toClient.Length); 
                     }
+                     
                     client.Close();
                 }
             }

@@ -152,12 +152,13 @@ namespace PasswordManagerServer
                 {
                     while (dataReader.Read())
                     {
-                        list.Add("[*"+dataReader[0].ToString()+ "[*" +
-                            dataReader[1].ToString()+ "[*" +
-                            dataReader[2].ToString()+ "[*" +
-                            dataReader[3].ToString()+ "[*" +
-                            dataReader[4].ToString()+ "[*" +
+                        list.Add(dataReader[0].ToString()+ "[" +
+                            dataReader[1].ToString()+ "[" +
+                            dataReader[2].ToString()+ "[" +
+                            dataReader[3].ToString()+ "[" +
+                            dataReader[4].ToString()+ "[" +
                             dataReader[5].ToString());
+                        return list;
                     }
                     connection.Close();
                     return list;
