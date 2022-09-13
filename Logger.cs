@@ -38,6 +38,8 @@ namespace PasswordManagerServer
 
         public const string
             ERROR_ARGS_NO_FOUND = "Args no found",
-            ERROR_ARGS_NEEDED = "";
+            ERROR_ARGS_NEEDED = "", 
+            VALID_LICENSE = "VALID_LICENSE",
+            NOT_VALID_LICENSE = "NOT_VALID_LICENSE";
     }
 }

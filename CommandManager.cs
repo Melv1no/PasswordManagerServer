@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Net.Sockets;
 using System.Text;
 
 namespace PasswordManagerServer
@@ -37,5 +38,21 @@ namespace PasswordManagerServer
             return "ERROR";
         }
 
+        internal static void ManageFor(string data, TcpClient client, NetworkStream networkStream, byte[] bytes, int i)
+        {
+            switch (data)
+            {
+                case "UPDATE":
+                    Logger.debug("Looking for update");
+                    forUpdate(data, client,networkStream, bytes, i) ;
+                    break;
+            }
+        }
+        public static void forUpdate(string data, TcpClient client, NetworkStream networkStream, byte[] bytes, int i)
+        {
+            String receivedUpdate = System.Text.Encoding.ASCII.GetString(bytes,0,i);
+            //PasswordManager.databaseManager.updatePassword()
+            Logger.error(receivedUpdate);
+        }
     }
 }

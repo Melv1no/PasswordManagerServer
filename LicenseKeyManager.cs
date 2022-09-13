@@ -56,5 +56,17 @@ namespace PasswordManagerServer
                 return ("");
             }
         }
+
+        internal static bool check(string data)
+        {
+            foreach (String s in PasswordManager.databaseManager.listLicense())
+            {
+                if (s.Equals(data))
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
     }
 }

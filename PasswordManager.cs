@@ -15,12 +15,15 @@ namespace PasswordManagerServer
             licenseKeyManager = new LicenseKeyManager();
             argsManager = new ArgsManager(args);
 
+            foreach (string s in databaseManager.listLicense()) {
+                Logger.info("licenseKey valid: " + s);
+            }
             if(args.Length != 0) { argsManager.setup(); }
 
             Thread clientListeningThread = new Thread(ClientListener.init);
             Logger.info("Thread Started for ClientListener.init");
             clientListeningThread.Start();
-            Logger.info(CommandManager.Redirect("LIST"));
+
         }
     }
 }

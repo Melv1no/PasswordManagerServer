@@ -35,7 +35,7 @@ namespace PasswordManagerServer
         public PasswordModel Build() => passwordModel;
         public Password setID(String id)
         {
-            passwordModel.ServiceName = id;
+            passwordModel.id = id;
             return this;
         }
         public Password setServiceName(String serviceName)

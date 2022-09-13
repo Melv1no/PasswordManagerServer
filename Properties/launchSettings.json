@@ -1,8 +1,7 @@
 {
   "profiles": {
     "PasswordManagerServer": {
-      "commandName": "Project",
-      "commandLineArgs": "--list sdf"
+      "commandName": "Project"
     }
   }
 }

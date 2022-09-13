@@ -42,13 +42,39 @@ namespace PasswordManagerServer
                     networkStream = client.GetStream();
 
                     int i;
-
+                    Boolean sessionValidated = false;
+                    Boolean next = false ;
+                    Boolean isFinish = false;
+                    String cmd = String.Empty;
                     while((i = networkStream.Read(bytes,0,bytes.Length)) != 0)
                     {
+                        
                         data = System.Text.Encoding.ASCII.GetString(bytes, 0,i);
-                        byte[] toClient = System.Text.Encoding.ASCII.GetBytes(CommandManager.Redirect(data));
+                        String[] sData = data.Split(':');
+                        byte[] toClient = System.Text.Encoding.ASCII.GetBytes(Logger.VALID_LICENSE) ;
+                        if (next)
+                        {
+                            CommandManager.ManageFor(cmd, client, networkStream, bytes, i);
+                            isFinish = true;
+                        }
+                        if (isFinish)
+                        {
+                            Logger.info("finished ");
+                            break;
+                        }
+                        if (!sessionValidated)
+                        {
+                            if (!LicenseKeyManager.check(sData[0])) {
 
-                        networkStream.Write(toClient, 0, toClient.Length); 
+                                toClient = System.Text.Encoding.ASCII.GetBytes(Logger.NOT_VALID_LICENSE);
+                                networkStream.Write(toClient, 0, toClient.Length);
+                                break; 
+                            }
+                            sessionValidated = true;
+                        }
+                        networkStream.Write(toClient, 0, toClient.Length);
+                        cmd = sData[1];
+                        next = true;
                     }
                      
                     client.Close();
