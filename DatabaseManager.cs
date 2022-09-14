@@ -129,7 +129,11 @@ namespace PasswordManagerServer
             username = passwd.getUsername();
             email = passwd.getEmail();
             numberPhone = passwd.getNumberPhone();
-
+		if(password == String.Empty){password = " ";}
+		if(ServiceName == String.Empty){ServiceName = " ";}
+		if(username == String.Empty){username = " ";}
+		if(email == String.Empty){email = " ";}
+		if(numberPhone == String.Empty){numberPhone = " ";}
             using (var connection = new SqliteConnection("Data Source=Password.db"))
             {
                 connection.Open();
@@ -150,7 +154,7 @@ namespace PasswordManagerServer
             }
 
 
-                //UPDATE password SET username = 'SEXEEEEEEEEEEEEEEEEEEEEEE' WHERE id = 2
+                //UPDATE password SET username = 'SE' WHERE id = 2
             }
         public List<String> listPassword()
         {
