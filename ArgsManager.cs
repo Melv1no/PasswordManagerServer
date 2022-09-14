@@ -56,14 +56,7 @@ namespace PasswordManagerServer
             }
             
         }
-        public void add(String v)
-        {
-
-        }
-        public void remove(String v)
-        {
-
-        }
+          
        
     }
 }
