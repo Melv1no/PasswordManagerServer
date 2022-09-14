@@ -1,1 +1,4 @@
-Password.db
+Password.db 
+.env
+bin/* 
+obj/*
