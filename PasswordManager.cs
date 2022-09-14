@@ -11,17 +11,22 @@ namespace PasswordManagerServer
         
         static void Main(string[] args)
         {
-            databaseManager = new DatabaseManager();
+           
+	    Logger.log("[ + ] - PasswordManager.MAIN() - [ + ] "); 
+	    databaseManager = new DatabaseManager();
             licenseKeyManager = new LicenseKeyManager();
             argsManager = new ArgsManager(args);
-
+	    Logger.log(" * databaseManager licenseKeyManager argsManager instance ready");
+	    Logger.log(" * Read database for valid license key :");
             foreach (string s in databaseManager.listLicense()) {
-                Logger.info("licenseKey valid: " + s);
+                Logger.info("> " + s);
             }
-            if(args.Length != 0) { argsManager.setup(); }
-
+	    Logger.log(" * checking for args");
+            if(args.Length != 0) {Logger.log("args detected !"); argsManager.setup(); }else{Logger.log("> No args detected");}
+	    Logger.log("[ - ] + _____________________ + [ - ] ");
+	    Logger.log("[ + ] - New Thread started for tcp server - [ + ]");
             Thread clientListeningThread = new Thread(ClientListener.init);
-            Logger.info("Thread Started for ClientListener.init");
+            
             clientListeningThread.Start();
 
         }
