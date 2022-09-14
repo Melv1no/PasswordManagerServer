@@ -12,7 +12,20 @@ namespace PasswordManagerServer
         {
         }
 
+	public void setupDatabase(){
 
+		using(var connection = new SqliteConnection("Data Source=Password.db"))
+		{
+		connection.Open();
+		var command = connection.CreateCommand();
+		command.CommandText = @"CREATE TABLE password (id INTEGER PRIMARY KEY AUTOINCREMENT,  ServiceName Text, username Text, password Text, email Text, phoneNumber Text)";
+		command.ExecuteNonQuery();
+		var command2 = connection.CreateCommand();
+		command2.CommandText = @"CREATE TABLE license (id INTEGER PRIMARY KEY AUTOINCREMENT, license Text)";
+		
+		command2.ExecuteNonQuery();
+		}
+	}
 
         public void addLicense(String license)
         {
