@@ -31,7 +31,7 @@ namespace PasswordManagerServer
 
                 while (true)
                 {
-                    Logger.debug("Waiting for connection");
+                    Logger.debug("Waiting for a connection...");
 
                     client = server.AcceptTcpClient();
 
@@ -42,9 +42,9 @@ namespace PasswordManagerServer
                     networkStream = client.GetStream();
 
                     int i;
-                    Boolean sessionValidated = false;
-                    Boolean next = false ;
-                    Boolean isFinish = false;
+                    Boolean licenseVerificationState = false;
+                    Boolean requestState = false ;
+                    Boolean finishState = false;
                     String cmd = String.Empty;
                     while((i = networkStream.Read(bytes,0,bytes.Length)) != 0)
                     {
@@ -52,17 +52,17 @@ namespace PasswordManagerServer
                         data = System.Text.Encoding.ASCII.GetString(bytes, 0,i);
                         String[] sData = data.Split(':');
                         byte[] toClient = System.Text.Encoding.ASCII.GetBytes(Logger.VALID_LICENSE) ;
-                        if (next)
+                        if (requestState)
                         {
                             CommandManager.ManageFor(cmd, client, networkStream, bytes, i);
-                            isFinish = true;
+                            finishState = true;
                         }
-                        if (isFinish)
+                        if (finishState)
                         {
                             Logger.info("finished ");
                             break;
                         }
-                        if (!sessionValidated)
+                        if (!licenseVerificationState)
                         {
                             if (!LicenseKeyManager.check(sData[0])) {
 
@@ -70,11 +70,11 @@ namespace PasswordManagerServer
                                 networkStream.Write(toClient, 0, toClient.Length);
                                 break; 
                             }
-                            sessionValidated = true;
+                            licenseVerificationState = true;
                         }
                         networkStream.Write(toClient, 0, toClient.Length);
                         cmd = sData[1];
-                        next = true;
+                        requestState = true;
                     }
                      
                     client.Close();

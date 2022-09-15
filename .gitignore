@@ -2,3 +2,4 @@ Password.db
 .env
 bin/* 
 obj/*
+logs/*
