@@ -15,6 +15,7 @@ namespace PasswordManagerServer
         }
         private static TcpListener server = null;
         private static TcpClient client = null;
+	private static ClientManager softClient = null;
         private static NetworkStream networkStream;
         public static void init()
         {
@@ -32,9 +33,10 @@ namespace PasswordManagerServer
                 while (true)
                 {
                     Logger.debug("Waiting for a connection...");
-
+		
                     client = server.AcceptTcpClient();
-
+		    //IPEndPoint ipep = (IPEndPoint)client.RemoteEndPoint;
+                    //IPAddress ipa = ipep.Address;
                     Logger.debug("Client connected");
 
                     data = null;
@@ -71,6 +73,7 @@ namespace PasswordManagerServer
                                 break; 
                             }
                             licenseVerificationState = true;
+		            //softClient = new ClientManager().registerClient(new Client(sData[0],ipa.ToString()));
                         }
                         networkStream.Write(toClient, 0, toClient.Length);
                         cmd = sData[1];
