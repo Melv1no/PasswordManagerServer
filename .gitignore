@@ -1,3 +1,4 @@
+.vs/*
 Password.db 
 .env
 bin/* 

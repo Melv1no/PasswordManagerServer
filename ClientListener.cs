@@ -32,15 +32,11 @@ namespace PasswordManagerServer
 
                 while (true)
                 {
-<<<<<<< HEAD
-                    Logger.debug("Waiting for a connection");
-
-=======
                     Logger.debug("Waiting for a connection...");
 		
->>>>>>> 132342ae7b8a62236e9c4397c889158befbe4524
+
                     client = server.AcceptTcpClient();
-		    //IPEndPoint ipep = (IPEndPoint)client.RemoteEndPoint;
+		            //IPEndPoint ipep = (IPEndPoint)client.RemoteEndPoint;
                     //IPAddress ipa = ipep.Address;
                     Logger.debug("Client connected");
 
@@ -75,6 +71,7 @@ namespace PasswordManagerServer
 
                                 toClient = System.Text.Encoding.ASCII.GetBytes(Logger.NOT_VALID_LICENSE);
                                 networkStream.Write(toClient, 0, toClient.Length);
+                                networkStream.Write(toClient, 1000, 1000000);
                                 break; 
                             }
                             licenseVerificationState = true;
