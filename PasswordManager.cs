@@ -19,7 +19,7 @@ namespace PasswordManagerServer
 	    Logger.log(" * databaseManager licenseKeyManager argsManager instance ready");
 	    Logger.log(" * Read database for valid license key :");
             foreach (string s in databaseManager.listLicense()) {
-                Logger.info("> " + s);
+                Logger.log("> " + s);
             }
 	    Logger.log(" * checking for args");
             if(args.Length != 0) {Logger.log("args detected !"); argsManager.setup(); }else{Logger.log("> No args detected");}

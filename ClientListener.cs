@@ -31,7 +31,7 @@ namespace PasswordManagerServer
 
                 while (true)
                 {
-                    Logger.debug("Waiting for connection");
+                    Logger.debug("Waiting for a connection");
 
                     client = server.AcceptTcpClient();
 
