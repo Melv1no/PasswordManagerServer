@@ -35,6 +35,10 @@ namespace PasswordManagerServer
                         PasswordManager.databaseManager.addLicense(args[1]);
                         break;
                     case "--remove":
+<<<<<<< HEAD
+=======
+                        
+>>>>>>> 132342ae7b8a62236e9c4397c889158befbe4524
                         break;
                     case "--list":
                         foreach (String s in PasswordManager.databaseManager.listLicense())

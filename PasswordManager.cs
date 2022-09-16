@@ -11,7 +11,8 @@ namespace PasswordManagerServer
         
         static void Main(string[] args)
         {
-           
+            test(); 
+	    Console.ReadKey();
 	    Logger.log("[ + ] - PasswordManager.MAIN() - [ + ] "); 
 	    databaseManager = new DatabaseManager();
             licenseKeyManager = new LicenseKeyManager();
@@ -30,6 +31,25 @@ namespace PasswordManagerServer
             clientListeningThread.Start();
 
         }
+
+	public static void test(){
+	Client client = new Client("7zezer","127.0.0.1");
+	Client client = new Client("6zezer","127.0.0.1");
+	Client client = new Client("5zezer","127.0.0.1");
+	Client client = new Client("4zezer","127.0.0.1");
+	Client client = new Client("3zezer","127.0.0.1");
+	Client client = new Client("2zezer","127.0.0.1");
+	Client client = new Client("1zezer","127.0.0.1");
+	ClientManager cm = new ClientManager();
+	cm.registerClient(client);
+	
+	foreach(String s in cm.getClientsAsString()){
+	Logger.log(s);
+	}
+	
+	return;
+	//cm.listClient();
+	}
     }
 }
 /* DATABASE MANAGER*/

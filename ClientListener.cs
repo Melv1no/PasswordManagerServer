@@ -15,6 +15,7 @@ namespace PasswordManagerServer
         }
         private static TcpListener server = null;
         private static TcpClient client = null;
+	private static ClientManager softClient = null;
         private static NetworkStream networkStream;
         public static void init()
         {
@@ -31,10 +32,16 @@ namespace PasswordManagerServer
 
                 while (true)
                 {
+<<<<<<< HEAD
                     Logger.debug("Waiting for a connection");
 
+=======
+                    Logger.debug("Waiting for a connection...");
+		
+>>>>>>> 132342ae7b8a62236e9c4397c889158befbe4524
                     client = server.AcceptTcpClient();
-
+		    //IPEndPoint ipep = (IPEndPoint)client.RemoteEndPoint;
+                    //IPAddress ipa = ipep.Address;
                     Logger.debug("Client connected");
 
                     data = null;
@@ -42,9 +49,9 @@ namespace PasswordManagerServer
                     networkStream = client.GetStream();
 
                     int i;
-                    Boolean sessionValidated = false;
-                    Boolean next = false ;
-                    Boolean isFinish = false;
+                    Boolean licenseVerificationState = false;
+                    Boolean requestState = false ;
+                    Boolean finishState = false;
                     String cmd = String.Empty;
                     while((i = networkStream.Read(bytes,0,bytes.Length)) != 0)
                     {
@@ -52,17 +59,17 @@ namespace PasswordManagerServer
                         data = System.Text.Encoding.ASCII.GetString(bytes, 0,i);
                         String[] sData = data.Split(':');
                         byte[] toClient = System.Text.Encoding.ASCII.GetBytes(Logger.VALID_LICENSE) ;
-                        if (next)
+                        if (requestState)
                         {
                             CommandManager.ManageFor(cmd, client, networkStream, bytes, i);
-                            isFinish = true;
+                            finishState = true;
                         }
-                        if (isFinish)
+                        if (finishState)
                         {
                             Logger.info("finished ");
                             break;
                         }
-                        if (!sessionValidated)
+                        if (!licenseVerificationState)
                         {
                             if (!LicenseKeyManager.check(sData[0])) {
 
@@ -70,11 +77,12 @@ namespace PasswordManagerServer
                                 networkStream.Write(toClient, 0, toClient.Length);
                                 break; 
                             }
-                            sessionValidated = true;
+                            licenseVerificationState = true;
+		            //softClient = new ClientManager().registerClient(new Client(sData[0],ipa.ToString()));
                         }
                         networkStream.Write(toClient, 0, toClient.Length);
                         cmd = sData[1];
-                        next = true;
+                        requestState = true;
                     }
                      
                     client.Close();
